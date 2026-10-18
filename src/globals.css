@@ -1,0 +1,162 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../vendor/shadcn-tailwind-4.13.0.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Official SAMA outline; scoped to the new Saudi Riyal Sign only. */
+@font-face {
+  font-family: "Partners Saudi Riyal";
+  src: url("/saudi-riyal.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+  unicode-range: U+20C1;
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility scrollbar-gutter-stable {
+  scrollbar-gutter: stable;
+}
+
+:root {
+  --background: #fafaf9;
+  --foreground: #1c1917;
+  --card: #ffffff;
+  --card-foreground: #1c1917;
+  --popover: #ffffff;
+  --popover-foreground: #1c1917;
+  --primary: #0f766e;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f4;
+  --secondary-foreground: #1c1917;
+  --muted: #f5f5f4;
+  --muted-foreground: #57534e;
+  --accent: #f0fdfa;
+  --accent-foreground: #134e4a;
+  --destructive: #e7000b;
+  --border: #e7e5e4;
+  --input: #e7e5e4;
+  --ring: #0f766e;
+  --chart-1: #0d9488;
+  --chart-2: #d97706;
+  --chart-3: #475569;
+  --chart-4: #e11d48;
+  --chart-5: #7c3aed;
+  --radius: 0.75rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1c1917;
+  --sidebar-primary: #0f766e;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f5f5f4;
+  --sidebar-accent-foreground: #1c1917;
+  --sidebar-border: #e7e5e4;
+  --sidebar-ring: #0f766e;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: "Partners Saudi Riyal", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+.dark {
+    --background: #0c0a09;
+    --foreground: #e7e5e4;
+    --card: #1c1917;
+    --card-foreground: #e7e5e4;
+    --popover: #1c1917;
+    --popover-foreground: #e7e5e4;
+    --primary: #14b8a6;
+    --primary-foreground: #042f2e;
+    --secondary: #292524;
+    --secondary-foreground: #e7e5e4;
+    --muted: #292524;
+    --muted-foreground: #a8a29e;
+    --accent: #1e2a29;
+    --accent-foreground: #ccfbf1;
+    --destructive: #ff6467;
+    --border: #ffffff1a;
+    --input: #ffffff26;
+    --ring: #14b8a6;
+    --chart-1: #2dd4bf;
+    --chart-2: #fbbf24;
+    --chart-3: #94a3b8;
+    --chart-4: #fb7185;
+    --chart-5: #a78bfa;
+    --sidebar: #1c1917;
+    --sidebar-foreground: #e7e5e4;
+    --sidebar-primary: #14b8a6;
+    --sidebar-primary-foreground: #042f2e;
+    --sidebar-accent: #292524;
+    --sidebar-accent-foreground: #e7e5e4;
+    --sidebar-border: #ffffff1a;
+    --sidebar-ring: #14b8a6;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Partners Saudi Riyal", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@media print {
+  body * { visibility: hidden; }
+  #printable, #printable * { visibility: visible; }
+  #printable {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: none;
+    padding: 0;
+    background: #fff;
+    color: #000;
+  }
+}

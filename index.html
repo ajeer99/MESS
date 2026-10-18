@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Shared expense book for two partners — every expense split 50/50, with balance, recurring costs and detailed reports." />
+    <meta name="theme-color" content="#0f766e" />
+    <script>
+      // Apply the saved preference before the stylesheet paints the page.
+      (() => {
+        let theme = "system";
+        try { theme = JSON.parse(localStorage.getItem("pe_preferences") || "{}").theme || "system"; } catch {}
+        const dark = theme === "dark" || (theme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.classList.toggle("dark", dark);
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
+      })();
+    </script>
+    <link rel="preload" href="/saudi-riyal.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Partners" />
+    <title>Partners — 50/50 expense book</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
