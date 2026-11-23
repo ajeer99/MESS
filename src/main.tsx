@@ -6,9 +6,10 @@ import "./globals.css";
 
 initializeTheme();
 
-// Keep production on the existing ledger until the new backend, access checks
-// and financial-history migration are ready. This is a local setup route only.
-const Root = import.meta.env.DEV && window.location.pathname === "/books-setup"
+// The existing ledger stays at the root route. The new multi-book onboarding
+// lives on its own path and is safe to expose: every action behind it requires
+// a signed-in Supabase account, and expense entry is not enabled there yet.
+const Root = window.location.pathname === "/books-setup"
   ? lazy(() => import("./books/BooksApp"))
   : App;
 

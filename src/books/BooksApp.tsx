@@ -109,11 +109,8 @@ function CurrencyPreview({ code }: { code: string }) {
   return <div className="rounded-lg bg-muted p-3 text-sm"><span className="font-semibold tabular-nums">{sample}</span><span className="text-muted-foreground"> · formatting sample, not a balance</span><p className="mt-1 text-xs text-muted-foreground">{code === "JPY" ? "JPY uses whole yen (0 decimal places)." : "This book uses 2 decimal places."} Your existing book's currency is unchanged.</p></div>;
 }
 
-/** Integration must also keep this route DEV-only; no existing app state is used. */
+/** The route gate in main.tsx keeps the existing ledger at "/"; this is the setup space. */
 export default function BooksApp() {
-  if (!import.meta.env.DEV) {
-    return <main className="mx-auto max-w-lg p-6"><h1 className="text-xl font-semibold">New books setup preview</h1><p className="my-4 text-muted-foreground">This setup preview is available only in development. Your existing expense book is unchanged.</p><a className="text-primary underline" href="/">Return to existing expense book</a></main>;
-  }
   return <BooksSetupPreview />;
 }
 
@@ -255,7 +252,7 @@ function BooksSetupPreview() {
       </header>
       <main className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6 sm:py-10">
         <section aria-labelledby="preview-heading" className="space-y-4">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-teal-300 bg-teal-50 px-3 py-1 text-xs font-semibold tracking-wide text-teal-900 dark:border-teal-800 dark:bg-teal-950 dark:text-teal-200"><LockKeyhole aria-hidden="true" className="size-3" /> DEVELOPMENT ONLY</span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-teal-300 bg-teal-50 px-3 py-1 text-xs font-semibold tracking-wide text-teal-900 dark:border-teal-800 dark:bg-teal-950 dark:text-teal-200"><LockKeyhole aria-hidden="true" className="size-3" /> SETUP PREVIEW</span>
           <div className="max-w-2xl space-y-2"><h1 id="preview-heading" className="text-2xl font-semibold tracking-tight sm:text-3xl">New books setup preview</h1><p className="text-base leading-relaxed text-muted-foreground">A separate space for your own books, your people, and a currency for each book.</p></div>
           <div className="flex gap-3 rounded-xl border bg-card p-4 text-sm leading-relaxed"><ShieldCheck aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-primary" /><p>Connected to a <strong>new Supabase project</strong>. Account, book, and invitation actions here are real. Your existing expense book is unchanged. <strong>Expense entry and history migration are not enabled in this preview.</strong></p></div>
           <ol aria-label="Setup stages" className="grid grid-cols-3 gap-2 text-xs sm:text-sm">

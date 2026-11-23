@@ -7,7 +7,8 @@ const proxy = { "/functions/v1/app": "http://127.0.0.1:8000" };
 export default defineConfig({
   plugins: [react()],
   resolve: { alias: { "@": fileURLToPath(new URL(".", import.meta.url)) } },
-  server: { host: "127.0.0.1", proxy },
+  // Public tunnels reach the dev server under an unfamiliar Host header.
+  server: { host: "127.0.0.1", proxy, allowedHosts: [".trycloudflare.com"] },
   preview: { host: "127.0.0.1", proxy },
   build: { outDir: "dist" },
 });
