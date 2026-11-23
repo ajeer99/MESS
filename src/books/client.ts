@@ -46,15 +46,26 @@ export class BooksError extends Error {
 export function friendlyError(error: unknown): string {
   if (error instanceof BooksError) return error.message;
   const code = error && typeof error === "object" && "code" in error ? error.code : "";
+  const message = error instanceof Error ? error.message : "";
   switch (code) {
     case "email_not_confirmed": return "Confirm your email first, then sign in.";
     case "invalid_credentials": return "The email or password is incorrect.";
     case "user_already_exists": return "An account may already exist. Try signing in.";
     case "weak_password": return "Choose a stronger password with at least 8 characters.";
+    case "email_address_invalid": return "That email address looks invalid. Check it and try again.";
     case "over_email_send_rate_limit": case "over_request_rate_limit":
       return "Too many attempts. Please wait before trying again.";
     case "signup_disabled": return "New account registration is currently disabled.";
-    default: return "Could not complete the request. Check your connection and try again.";
+    case "email_address_not_authorized":
+      return "The project's email sender can't deliver to that address yet. Custom SMTP is not active in Supabase (Authentication → Emails). Until the owner configures it, only project team addresses can register.";
+    case "redirect_url_not_allowed":
+      return "The confirmation redirect isn't allowed by Supabase yet. Add this site's /books-setup address to Authentication → URL Configuration → Redirect URLs.";
+    case "email_provider_disabled": return "Email signup is disabled on this project.";
+    default:
+      // Older gotrue versions return only a message, no code.
+      if (/redirect\s*url/i.test(message)) return "The confirmation redirect isn't allowed by Supabase yet. Add this site's /books-setup address to Authentication → URL Configuration → Redirect URLs.";
+      if (/email address not authorized/i.test(message)) return "The project's email sender can't deliver to that address yet. Custom SMTP is not active in Supabase (Authentication → Emails).";
+      return "Could not complete the request. Check your connection and try again.";
   }
 }
 
